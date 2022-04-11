@@ -1,0 +1,36 @@
+<div class="container">
+    <!--
+      A forma que enviamos informações do componente filho (student-registry.component)
+      para o componente pai (app.component) é através de eventos
+      [student].
+    -->
+    <app-student-registry
+    (aprovedCreated)="approvedAdded($event)"
+    (substituteCreated)="substituteAdded($event)"
+  >
+  </app-student-registry>
+
+  <!-- Students List -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <button class="btn btn-warning mb-2 mr-2" (click)="changeFirst()">Mudar primeiro</button>
+      <button class="btn btn-danger mb-2" (click)="destroyFirst()">Remover primeiro</button>
+      <!--
+        A forma que enviamos informações do componente pai (app.component)
+        para o componente filho (student.component) é através da propriedade
+        [student].
+       -->
+      <app-student
+        *ngFor="let student of students"
+        [student]="student"
+        [type]="student.type"
+      >
+        <div class="d-flex w-100 justify-content-between">
+          <strong>{{ student.name }}</strong>
+          <small>{{ student.description }}</small>
+        </div>
+      </app-student>
+    </div>
+  </div>
+
+</div>
