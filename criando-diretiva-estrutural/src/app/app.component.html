@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+
+      <button
+        class="btn btn-primary mt-2 mb-2"
+        (click)="onlyOdd = !onlyOdd">
+          Mostrar apenas ímpares
+      </button>
+
+      <ul class="list-group">
+        <div *ngIf="onlyOdd">
+          <li class="list-group-item"
+            *ngFor="let number of oddNumbers"
+            [ngClass]="{ odd: number % 2 !== 0 }"
+            [ngStyle]="{ backgroundColor: number % 2 !== 0 ? 'lightcoral' : 'lightblue'}">
+            {{number}}
+          </li>
+        </div>
+        
+        <!-- <div *ngIf="!onlyOdd">
+          <li class="list-group-item"
+            *ngFor="let number of evenNumbers"
+            [ngClass]="{ even: number % 2 === 0 }"
+            [ngStyle]="{ backgroundColor: number % 2 !== 0 ? 'lightcoral' : 'lightblue'}">
+            {{number}}
+          </li>
+        </div> -->
+
+        <div *appUnless="onlyOdd">
+          <li class="list-group-item"
+            *ngFor="let number of evenNumbers"
+            [ngClass]="{ even: number % 2 === 0 }"
+            [ngStyle]="{ backgroundColor: number % 2 !== 0 ? 'lightcoral' : 'lightblue'}">
+            {{number}}
+          </li>
+        </div>
+
+      </ul>
+      <p appDangerHighLight>Me estilize com o dangerDirective, pra ficar com background vermelho</p>
+      <p appWarningHighlight [defaultColor]="'blue'" [highlightColor]="'green'">Me estilize com o dangerDirective, pra ficar com background laranja</p>
+    </div>
+  </div>
+</div>
