@@ -1,26 +1,26 @@
+import { UserService } from './../user.service';
 import { LoggingService } from './../logging.service';
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-new-user',
   templateUrl: './new-user.component.html',
-  styleUrls: ['./new-user.component.css'],
-  providers: [ LoggingService ]
+  styleUrls: ['./new-user.component.css']
 })
 export class NewUserComponent{
 
-  @Output() userCreated = new EventEmitter<{ name: string, status: string }>();
-
   constructor(
-    private loggingService: LoggingService
-  ) { }
+    private loggingService: LoggingService,
+    private userService: UserService
+  ) {
+    this.userService.statusUpdate.subscribe(
+      (status: string) => alert(`Novo Status: ${status}`)
+    );
+  }
 
   onCreateUser(userName: string, userStatus: string) {
-    this.userCreated.emit({
-      name: userName,
-      status: userStatus
-    })
-    this.loggingService.logStatusChange(userStatus);
+    this.userService.createUser(userName, userStatus);
+    // this.loggingService.logStatusChange(userStatus);
   }
 
 }

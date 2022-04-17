@@ -1,22 +1,20 @@
-import { Component } from '@angular/core';
+import { UserService } from './user.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  users = [
-    { name: 'José da Silva', status: 'ativo' },
-    { name: 'Maria das Dores', status: 'inativo' },
-    { name: 'Francisco Pereira', status: 'férias' }
-  ]
+export class AppComponent implements OnInit {
 
-  onUserCreated(newUser: { name: string, status: string }) {
-    this.users.push(newUser);
-  }
+  users: { name: string, status: string }[];
 
-  onStatusChanged(updatedUser: { id: number, newStatus: string }) {
-    this.users[updatedUser.id].status = updatedUser.newStatus;
+  constructor(
+    private userService: UserService
+  ) {}
+
+  ngOnInit() {
+    this.users = this.userService.users;
   }
 }
